@@ -18,6 +18,7 @@ const ProductListPage = () => {
   const [originalProducts, setOriginalProducts] = useState([]);
 
   useEffect(() => {
+    document.title = "ProductList | QuickPikk";
     const passedProducts = location.state?.products;
 
     if (passedProducts && Array.isArray(passedProducts)) {
@@ -40,7 +41,7 @@ const ProductListPage = () => {
 
     try {
       const token = localStorage.getItem("jwt");
-      const res = await axios.get(url, {
+      const res = await axios.post(url, originalProducts, {
         headers: {
           Authorization: token,
         },
@@ -51,25 +52,11 @@ const ProductListPage = () => {
     }
   };
 
-  const handleFilterChange = (category) => {
-    if (!category) {
-      setProducts(originalProducts);
-      return;
-    }
-    const filtered = originalProducts.filter(
-      (p) => p.productCategory?.toLowerCase() === category.toLowerCase()
-    );
-    setProducts(filtered);
-  };
-
   return (
     <>
       <Header />
       <Container>
-        <SortFilterBar
-          onSortChange={handleSortChange}
-          onFilterChange={handleFilterChange}
-        />
+        <SortFilterBar onSortChange={handleSortChange} />
         {products.length > 0 ? (
           products.map((product) => (
             <ProductCard key={product.productId} product={product} />

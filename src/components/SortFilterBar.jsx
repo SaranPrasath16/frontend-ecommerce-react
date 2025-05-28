@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const Bar = styled.div`
@@ -10,58 +10,38 @@ const Bar = styled.div`
 `;
 
 const Select = styled.select`
-  padding: 0.5rem;
+  padding: 0.6rem 1rem;
   font-size: 1rem;
-`;
-
-const Input = styled.input`
-  padding: 0.5rem;
-  width: 120px;
-  font-size: 1rem;
-`;
-
-const Button = styled.button`
-  padding: 0.5rem 1rem;
-  background-color: #2c3e50;
-  color: white;
-  border: none;
+  border: 2px solid #2c3e50;
+  border-radius: 8px;
+  background-color: white;
+  color: #2c3e50;
   cursor: pointer;
-  font-size: 1rem;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg width='10' height='7' viewBox='0 0 10 7' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%232c3e50' stroke-width='2' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 10px 7px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
-  &:hover {
-    background-color: #1a252f;
+  &:hover,
+  &:focus {
+    border-color: #1a252f;
+    box-shadow: 0 0 6px #1a252f;
+    outline: none;
   }
 `;
 
-const SortFilterBar = ({ onSortChange, onFilterChange }) => {
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
-
-  const handleFilterClick = () => {
-    onFilterChange({ minPrice, maxPrice });
-  };
-
+const SortFilterBar = ({ onSortChange }) => {
   return (
     <Bar>
-      <Select onChange={(e) => onSortChange(e.target.value)}>
-        <option value="">Sort By</option>
+      <Select onChange={(e) => onSortChange(e.target.value)} defaultValue="">
+        <option value="" disabled>
+          Sort By
+        </option>
         <option value="price-low">Price: Low to High</option>
         <option value="price-high">Price: High to Low</option>
       </Select>
-
-      <Input
-        type="number"
-        placeholder="Min Price"
-        value={minPrice}
-        onChange={(e) => setMinPrice(e.target.value)}
-      />
-      <Input
-        type="number"
-        placeholder="Max Price"
-        value={maxPrice}
-        onChange={(e) => setMaxPrice(e.target.value)}
-      />
-      <Button onClick={handleFilterClick}>Filter</Button>
     </Bar>
   );
 };
