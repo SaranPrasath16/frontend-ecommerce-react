@@ -13,7 +13,7 @@ export const Image = styled.img`
   height: 80px;
   object-fit: cover;
   border-radius: 8px;
-  background-color: #eee; /* placeholder */
+  background-color: #eee;
 `;
 
 export const Details = styled.div`

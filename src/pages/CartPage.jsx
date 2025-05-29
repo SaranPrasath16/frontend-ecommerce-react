@@ -60,7 +60,6 @@ const CartPage = () => {
       );
       return { ...prev, cartItems: updatedItems };
     });
-    // TODO: Call backend API to update quantity
   };
 
   const handleRemove = (productId) => {
@@ -70,7 +69,6 @@ const CartPage = () => {
       );
       return { ...prev, cartItems: filteredItems };
     });
-    // TODO: Call backend API to remove item
   };
 
   if (loading) {
