@@ -5,6 +5,7 @@ import VerifyOtp from "./components/VerifyOtp";
 import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
 import ProductListPage from "./pages/ProductListPage";
+import CartPage from "./pages/CartPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/homepage" element={<HomePage />} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/productlist" element={<ProductListPage />} />
+        <Route path="/cart" element={<CartPage />} />
       </Routes>
     </Router>
   );
