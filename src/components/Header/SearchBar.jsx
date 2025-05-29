@@ -40,20 +40,20 @@ const SearchBar = () => {
   const navigate = useNavigate();
 
   const handleSearch = async () => {
-    const trimmed = query.trim();
-    if (!trimmed) {
+    const searchString = query.trim();
+    if (!searchString) {
       alert("Please enter a search term.");
       return;
     }
 
-    const lower = trimmed.toLowerCase();
+    const lower = searchString.toLowerCase();
 
     let product_Id = "";
     let product_Name = "";
     let product_Category = "";
 
-    if (trimmed.startsWith("PRODUCT_")) {
-      product_Id = trimmed;
+    if (searchString.startsWith("PRODUCT_")) {
+      product_Id = searchString;
     } else if (
       [
         "headphones",
@@ -67,9 +67,9 @@ const SearchBar = () => {
         "home and furniture",
       ].some((cat) => lower.includes(cat))
     ) {
-      product_Category = trimmed;
+      product_Category = searchString;
     } else {
-      product_Name = trimmed;
+      product_Name = searchString;
     }
 
     const params = new URLSearchParams({
