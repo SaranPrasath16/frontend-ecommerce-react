@@ -22,7 +22,7 @@ const HomePage = () => {
       <Header />
       <BannerSection />
       <CategorySection />
-      <FeaturedProductsSection />
+      <FeaturedProductsSection title="Featured Products" />
       <Footer />
     </HomePageContainer>
   );

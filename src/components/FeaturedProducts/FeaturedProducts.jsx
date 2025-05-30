@@ -36,7 +36,7 @@ const ProductsWrapper = styled.div`
   }
 `;
 
-const FeaturedProducts = () => {
+const FeaturedProducts = ({ title = "Featured Products" }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const FeaturedProducts = () => {
 
   return (
     <FeaturedSection>
-      <Heading>Featured Products</Heading>
+      <Heading>{title}</Heading>
       <ProductsWrapper>
         {products.map((product, index) => (
           <ProductCard key={index} product={product} />

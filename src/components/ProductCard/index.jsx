@@ -32,7 +32,10 @@ const ProductCard = ({ product }) => {
     try {
       await axios.post(
         "http://localhost:8080/api/user/cart",
-        { productId: product.productId },
+        {
+          productId: product.productId,
+          quantity: 1,
+        },
         {
           headers: {
             Authorization: token,

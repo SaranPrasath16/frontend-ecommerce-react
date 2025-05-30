@@ -98,7 +98,6 @@ const ProductDetail = ({ productId }) => {
       );
       console.log("Buy Now added to cart:", response.data);
       alert("Proceeding to checkout...");
-      // Optional: Navigate to checkout page
     } catch (error) {
       console.error("Failed to proceed with buy now:", error);
       alert("Failed to proceed with buy now.");

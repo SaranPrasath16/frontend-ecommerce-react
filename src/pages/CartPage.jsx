@@ -1,74 +1,81 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CartItemCard from "../components/CartItemCard";
+import CartSummaryBox from "../components/CartSummaryBox";
+import FeaturedProductsSection from "../components/FeaturedProducts/FeaturedProducts";
 
 const Container = styled.div`
   padding: 2rem 5rem;
   background-color: #f9f9f9;
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
 `;
 
-const Summary = styled.div`
-  margin-top: 2rem;
-  text-align: right;
+const TwoColumnLayout = styled.div`
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
-const CheckoutBtn = styled.button`
-  margin-top: 1rem;
-  background-color: #28a745;
-  color: white;
-  padding: 10px 25px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+const CartList = styled.div`
+  flex: 0 0 70%;
+
+  @media (max-width: 768px) {
+    flex: 1 1 100%;
+  }
 `;
 
 const CartPage = () => {
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [checkingOut, setCheckingOut] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    document.title = "MyCart | QuickPikk";
+
     const fetchCart = async () => {
       try {
         const token = localStorage.getItem("jwt");
-        const res = await fetch("http://localhost:8080/api/user/cart", {
+        const res = await axios.get("http://localhost:8080/api/user/cart", {
           headers: {
             Authorization: token,
           },
         });
-        if (!res.ok) throw new Error("Failed to fetch cart");
-        const data = await res.json();
-        setCart(data);
+        setCart(res.data);
       } catch (error) {
         console.error("Error fetching cart:", error);
       } finally {
         setLoading(false);
       }
     };
+
     fetchCart();
   }, []);
 
-  const handleQuantityChange = (productId, quantity) => {
-    if (quantity < 1) return;
-    setCart((prev) => {
-      const updatedItems = prev.cartItems.map((item) =>
-        item.productId === productId ? { ...item, quantity } : item
-      );
-      return { ...prev, cartItems: updatedItems };
-    });
-  };
-
-  const handleRemove = (productId) => {
-    setCart((prev) => {
-      const filteredItems = prev.cartItems.filter(
-        (item) => item.productId !== productId
-      );
-      return { ...prev, cartItems: filteredItems };
-    });
+  const handleCheckout = async () => {
+    setCheckingOut(true);
+    try {
+      const token = localStorage.getItem("jwt");
+      await axios.post("http://localhost:8080/api/user/checkout", null, {
+        headers: {
+          Authorization: token,
+        },
+      });
+      navigate("/checkout-waiting");
+    } catch (error) {
+      alert("Failed to initiate checkout: " + error.message);
+    } finally {
+      setCheckingOut(false);
+    }
   };
 
   if (loading) {
@@ -101,20 +108,20 @@ const CartPage = () => {
       <Header />
       <Container>
         <h2>My Cart</h2>
-        {cart.cartItems.map((item) => (
-          <CartItemCard
-            key={item.productId}
-            item={item}
-            onQuantityChange={handleQuantityChange}
-            onRemove={handleRemove}
+        <TwoColumnLayout>
+          <CartList>
+            {cart.cartItems.map((cartItem) => (
+              <CartItemCard key={cartItem.productId} cartItem={cartItem} />
+            ))}
+          </CartList>
+          <CartSummaryBox
+            totalAmount={cart.totalAmount}
+            onCheckout={handleCheckout}
+            checkingOut={checkingOut}
           />
-        ))}
-
-        <Summary>
-          <h3>Subtotal: ₹{cart.totalAmount.toFixed(2)}</h3>
-          <CheckoutBtn>Proceed to Checkout</CheckoutBtn>
-        </Summary>
+        </TwoColumnLayout>
       </Container>
+      <FeaturedProductsSection title="You may like this" />
       <Footer />
     </>
   );
