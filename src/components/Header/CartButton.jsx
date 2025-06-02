@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FiShoppingCart } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const ButtonWrapper = styled.div`
   position: relative;
   cursor: pointer;
 
   &:hover .dropdown {
-    display: block;
+    display: ${({ disabledHover }) => (disabledHover ? "none" : "block")};
   }
 `;
 
@@ -114,6 +114,35 @@ const ActionButton = styled.button`
   }
 `;
 
+const AdminButton = styled(ActionButton)`
+  width: 160px;
+
+  &:hover {
+    background-color: #22303c;
+  }
+`;
+
+const AdminDropdown = styled(Dropdown)`
+  width: 220px;
+  padding: 0;
+`;
+
+const AdminItem = styled.div`
+  padding: 10px 14px;
+  cursor: pointer;
+  color: #2c3e50;
+  font-size: 14px;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+`;
+
+const Divider = styled.div`
+  height: 1px;
+  background-color: #ddd;
+`;
+
 const EmptyMessage = styled.div`
   text-align: center;
   padding: 10px;
@@ -122,45 +151,117 @@ const EmptyMessage = styled.div`
 
 const CartButton = ({ itemCount = 0, cartItems = [] }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isCartPage = location.pathname === "/cart";
 
-  const handleClick = () => {
-    navigate("/cart");
+  const [role, setRole] = useState("USER");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    const userRole = localStorage.getItem("role") || "USER";
+    setRole(userRole);
+  }, []);
+
+  const handleCartClick = () => {
+    if (!isCartPage) navigate("/cart");
   };
 
-  return (
-    <ButtonWrapper onClick={handleClick}>
-      <Icon />
-      {itemCount > 0 && <CountBadge>{itemCount}</CountBadge>}
-      <Dropdown className="dropdown" onClick={(e) => e.stopPropagation()}>
-        {cartItems.length > 0 ? (
-          <>
-            {cartItems.map((item) => (
-              <CartItem key={item.productId}>
-                <ItemLeft>
-                  <ItemTopRow>
-                    <ProductImage src={"/assets/default.png"} alt={item.name} />
-                    <ItemDetails>
-                      <ItemName>{item.name}</ItemName>
-                    </ItemDetails>
-                  </ItemTopRow>
-                  <ItemMeta>Qty: {item.quantity}</ItemMeta>
-                </ItemLeft>
-                <ItemRight>₹{item.price}</ItemRight>
-              </CartItem>
-            ))}
-            <ButtonGroup>
-              <ActionButton onClick={() => navigate("/cart")}>
-                View Cart
-              </ActionButton>
-              <ActionButton onClick={() => navigate("/checkout")}>
-                Checkout
-              </ActionButton>
-            </ButtonGroup>
-          </>
-        ) : (
-          <EmptyMessage>Cart is empty</EmptyMessage>
+  const handleAdminClick = () => {
+    setDropdownOpen((prev) => !prev);
+  };
+
+  const goTo = (path) => {
+    setDropdownOpen(false);
+    navigate(path);
+  };
+
+  const renderAdminDropdown = () => {
+    const elements = [];
+
+    if (role === "SUPER_ADMIN") {
+      elements.push(
+        <AdminItem key="users" onClick={() => goTo("/admin/users")}>
+          User Details & Activities
+        </AdminItem>,
+        <Divider key="div1" />
+      );
+    }
+
+    if (role === "SUPER_ADMIN" || role === "PRODUCT_ADMIN") {
+      elements.push(
+        <AdminItem key="products" onClick={() => goTo("/admin/products")}>
+          Product Activities
+        </AdminItem>
+      );
+
+      if (role === "SUPER_ADMIN") {
+        elements.push(<Divider key="div2" />);
+      }
+    }
+
+    if (role === "SUPER_ADMIN" || role === "ORDER_ADMIN") {
+      elements.push(
+        <AdminItem key="orders" onClick={() => goTo("/admin/orders")}>
+          Order Activities
+        </AdminItem>
+      );
+    }
+
+    return (
+      <AdminDropdown className="dropdown" onClick={(e) => e.stopPropagation()}>
+        {elements}
+      </AdminDropdown>
+    );
+  };
+
+  if (role === "USER") {
+    return (
+      <ButtonWrapper onClick={handleCartClick} disabledHover={isCartPage}>
+        <Icon />
+        {itemCount > 0 && <CountBadge>{itemCount}</CountBadge>}
+        {!isCartPage && (
+          <Dropdown className="dropdown" onClick={(e) => e.stopPropagation()}>
+            {cartItems.length > 0 ? (
+              <>
+                {cartItems.map((item) => (
+                  <CartItem key={item.productId}>
+                    <ItemLeft>
+                      <ItemTopRow>
+                        <ProductImage
+                          src={"/assets/default.png"}
+                          alt={item.name}
+                        />
+                        <ItemDetails>
+                          <ItemName>{item.name}</ItemName>
+                        </ItemDetails>
+                      </ItemTopRow>
+                      <ItemMeta>Qty: {item.quantity}</ItemMeta>
+                    </ItemLeft>
+                    <ItemRight>₹{item.price}</ItemRight>
+                  </CartItem>
+                ))}
+                <ButtonGroup>
+                  <ActionButton onClick={() => navigate("/cart")}>
+                    View Cart
+                  </ActionButton>
+                  <ActionButton onClick={() => navigate("/checkout")}>
+                    Checkout
+                  </ActionButton>
+                </ButtonGroup>
+              </>
+            ) : (
+              <EmptyMessage>Cart is empty</EmptyMessage>
+            )}
+          </Dropdown>
         )}
-      </Dropdown>
+      </ButtonWrapper>
+    );
+  }
+
+  return (
+    <ButtonWrapper onClick={handleAdminClick}>
+      <AdminButton>Admin Activities</AdminButton>
+      {dropdownOpen && renderAdminDropdown()}
     </ButtonWrapper>
   );
 };

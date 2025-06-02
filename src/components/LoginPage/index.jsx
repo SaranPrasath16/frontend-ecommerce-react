@@ -31,6 +31,7 @@ const LoginPage = () => {
           localStorage.setItem("userEmail", res.headers["useremail"]);
           localStorage.setItem("userAddress", res.headers["useraddress"]);
           localStorage.setItem("userMobile", res.headers["usermobile"]);
+          localStorage.setItem("role", res.headers["role"]);
           navigate("/homepage");
         } else {
           console.error("JWT missing");
@@ -74,6 +75,7 @@ const LoginPage = () => {
           localStorage.setItem("userEmail", res.headers["useremail"]);
           localStorage.setItem("userAddress", res.headers["useraddress"]);
           localStorage.setItem("userMobile", res.headers["usermobile"]);
+          localStorage.setItem("role", res.headers["role"]);
           navigate("/homepage");
         } else {
           console.error("JWT missing");

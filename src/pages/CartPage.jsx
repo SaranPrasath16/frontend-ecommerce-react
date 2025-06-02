@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import CartItemCard from "../components/CartItemCard";
 import CartSummaryBox from "../components/CartSummaryBox";
 import FeaturedProductsSection from "../components/FeaturedProducts/FeaturedProducts";
+import AddressBox from "../components/AddressBox";
 
 const Container = styled.div`
   padding: 2rem 5rem;
@@ -108,6 +109,7 @@ const CartPage = () => {
       <Header />
       <Container>
         <h2>My Cart</h2>
+        <AddressBox />
         <TwoColumnLayout>
           <CartList>
             {cart.cartItems.map((cartItem) => (

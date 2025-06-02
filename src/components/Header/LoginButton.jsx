@@ -78,10 +78,12 @@ const LoginButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [userRole, setUserRole] = useState("");
 
   useEffect(() => {
     setUserName(localStorage.getItem("userName") || "");
     setUserEmail(localStorage.getItem("userEmail") || "");
+    setUserRole(localStorage.getItem("role") || "");
   }, []);
 
   const handleLoginRegister = () => {
@@ -94,7 +96,7 @@ const LoginButton = () => {
   };
 
   const handleOrderList = () => {
-    navigate("/orders");
+    navigate("/ordershistory");
   };
 
   const token = localStorage.getItem("jwt");
@@ -110,7 +112,8 @@ const LoginButton = () => {
           <>
             <Dropdown>
               <UserDetails>
-                <strong>{userName}</strong>
+                <strong>Hi, {userRole || "USER"}</strong>
+                <div>{userName}</div>
                 <small>{userEmail}</small>
               </UserDetails>
               <MenuItem onClick={handleOrderList}>📦 Order List</MenuItem>
