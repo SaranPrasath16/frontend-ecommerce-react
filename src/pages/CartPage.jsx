@@ -42,6 +42,10 @@ const CartPage = () => {
 
   useEffect(() => {
     document.title = "MyCart | QuickPikk";
+    const favicon = document.getElementById("favicon");
+    if (favicon) {
+      favicon.href = "/assets/quickpikklogo.png";
+    }
 
     const fetchCart = async () => {
       try {

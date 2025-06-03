@@ -13,6 +13,10 @@ const VerifyOtp = () => {
 
   useEffect(() => {
     document.title = "Verify OTP | QuickPikk";
+    const favicon = document.getElementById("favicon");
+    if (favicon) {
+      favicon.href = "/assets/quickpikklogo.png";
+    }
   }, []);
 
   const handleSubmit = async (e) => {

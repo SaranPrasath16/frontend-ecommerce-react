@@ -19,6 +19,10 @@ const ProductListPage = () => {
 
   useEffect(() => {
     document.title = "ProductList | QuickPikk";
+    const favicon = document.getElementById("favicon");
+    if (favicon) {
+      favicon.href = "/assets/quickpikklogo.png";
+    }
     const passedProducts = location.state?.products;
 
     if (passedProducts && Array.isArray(passedProducts)) {

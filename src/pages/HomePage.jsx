@@ -15,6 +15,11 @@ const HomePageContainer = styled.div`
 const HomePage = () => {
   useEffect(() => {
     document.title = "Home | Quickpick";
+
+    const favicon = document.getElementById("favicon");
+    if (favicon) {
+      favicon.href = "/assets/quickpikklogo.png";
+    }
   }, []);
 
   return (

@@ -16,6 +16,10 @@ const CheckoutWaitingPage = () => {
 
   useEffect(() => {
     document.title = "Checkout | QuickPikk";
+    const favicon = document.getElementById("favicon");
+    if (favicon) {
+      favicon.href = "/assets/quickpikklogo.png";
+    }
 
     const timer = setTimeout(() => {
       navigate("/order-success");

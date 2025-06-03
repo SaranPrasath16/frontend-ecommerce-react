@@ -43,6 +43,11 @@ const LoginPage = () => {
   useEffect(() => {
     document.title = "login | QuickPikk";
 
+    const favicon = document.getElementById("favicon");
+    if (favicon) {
+      favicon.href = "/assets/quickpikklogo.png";
+    }
+
     window.google?.accounts.id.initialize({
       client_id:
         "126856313050-j2mcgcshja084dvkg04jpdvqok9iiopr.apps.googleusercontent.com",

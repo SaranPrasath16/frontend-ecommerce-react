@@ -17,6 +17,10 @@ const OrderHistoryPage = () => {
 
   useEffect(() => {
     document.title = "Order History | QuickPikk";
+    const favicon = document.getElementById("favicon");
+    if (favicon) {
+      favicon.href = "/assets/quickpikklogo.png";
+    }
 
     const fetchOrders = async () => {
       try {
@@ -24,7 +28,6 @@ const OrderHistoryPage = () => {
         const res = await axios.get("api/user/orders", {
           headers: { Authorization: token },
         });
-        // Access the "orderList" array inside the response data
         setOrders(res.data.orderList || []);
       } catch (error) {
         console.error("Failed to fetch orders:", error);

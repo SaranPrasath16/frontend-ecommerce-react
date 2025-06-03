@@ -13,6 +13,10 @@ const Container = styled.div`
 const OrderSuccessPage = () => {
   React.useEffect(() => {
     document.title = "Order Success | QuickPikk";
+    const favicon = document.getElementById("favicon");
+    if (favicon) {
+      favicon.href = "/assets/quickpikklogo.png";
+    }
   }, []);
 
   return (

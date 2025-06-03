@@ -16,6 +16,11 @@ const ProductPage = () => {
 
   useEffect(() => {
     document.title = "Product | Quickpick";
+
+    const favicon = document.getElementById("favicon");
+    if (favicon) {
+      favicon.href = "/assets/quickpikklogo.png";
+    }
   }, []);
 
   return (
