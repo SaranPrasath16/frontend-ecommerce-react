@@ -11,5 +11,7 @@ export default defineConfig({
         secure: false,
       },
     },
+    allowedHosts: ['899cd492c128c3.lhr.life'],
+    host: true,
   },
 });

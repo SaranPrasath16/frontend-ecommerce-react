@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import Header from "../components/Header";
-import ProductDetail from "../components/ProductDetails";
-import Footer from "../components/Footer";
+import Header from "../../components/Header";
+import ProductDetail from "../../components/ProductDetails";
+import Footer from "../../components/Footer";
 
 const ProductPageContainer = styled.div`
   display: flex;

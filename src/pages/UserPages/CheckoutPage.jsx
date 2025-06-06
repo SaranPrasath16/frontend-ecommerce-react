@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import CheckoutItemCard from "../components/CheckoutItemCard";
-import UserInfoBox from "../components/UserInfoBox";
-import OrderSummary from "../components/CheckoutSummaryBox";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import CheckoutItemCard from "../../components/CheckoutItemCard";
+import UserInfoBox from "../../components/UserInfoBox";
+import OrderSummary from "../../components/CheckoutSummaryBox";
 
 const Container = styled.div`
   padding: 2rem 5rem;

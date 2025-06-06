@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import CartItemCard from "../components/CartItemCard";
-import CartSummaryBox from "../components/CartSummaryBox";
-import FeaturedProductsSection from "../components/FeaturedProducts/FeaturedProducts";
-import AddressBox from "../components/AddressBox";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import CartItemCard from "../../components/CartItemCard";
+import CartSummaryBox from "../../components/CartSummaryBox";
+import FeaturedProductsSection from "../../components/FeaturedProducts/FeaturedProducts";
+import AddressBox from "../../components/AddressBox";
 
 const Container = styled.div`
   padding: 2rem 5rem;

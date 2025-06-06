@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Header from "../components/Header";
-import SortFilterBar from "../components/SortFilterBar";
-import ProductCard from "../components/ProductCard";
+import Header from "../../components/Header";
+import SortFilterBar from "../../components/SortFilterBar";
+import ProductCard from "../../components/ProductCard";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import Footer from "../components/Footer";
+import Footer from "../../components/Footer";
 
 const Container = styled.div`
   padding: 1rem 5rem;

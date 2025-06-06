@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 const Container = styled.div`
   padding: 3rem 5rem;

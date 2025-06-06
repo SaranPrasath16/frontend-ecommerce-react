@@ -2,14 +2,15 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./components/LoginPage";
 import VerifyOtp from "./components/VerifyOtp";
-import HomePage from "./pages/HomePage";
-import ProductPage from "./pages/ProductPage";
-import ProductListPage from "./pages/ProductListPage";
-import CartPage from "./pages/CartPage";
-import CheckoutWaitingPage from "./pages/CheckoutWaitingPage";
-import OrderSuccessPage from "./pages/OrderSuccessPage";
-import OrderHistory from "./pages/OrderHistory";
-import CheckoutPage from "./pages/CheckoutPage";
+import HomePage from "./pages/UserPages/HomePage";
+import ProductPage from "./pages/UserPages/ProductPage";
+import ProductListPage from "./pages/UserPages/ProductListPage";
+import CartPage from "./pages/UserPages/CartPage";
+import CheckoutWaitingPage from "./pages/UserPages/CheckoutWaitingPage";
+import OrderSuccessPage from "./pages/UserPages/OrderSuccessPage";
+import OrderHistory from "./pages/UserPages/OrderHistory";
+import CheckoutPage from "./pages/UserPages/CheckoutPage";
+import UsersListPage from "./pages/SuperAdminPages/UsersListPage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/order-success" element={<OrderSuccessPage />} />
         <Route path="/ordershistory" element={<OrderHistory />} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/userlist" element={<UsersListPage />} />
       </Routes>
     </Router>
   );

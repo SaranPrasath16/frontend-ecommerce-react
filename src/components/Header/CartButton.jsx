@@ -180,7 +180,7 @@ const CartButton = ({ itemCount = 0, cartItems = [] }) => {
 
     if (role === "SUPER_ADMIN") {
       elements.push(
-        <AdminItem key="users" onClick={() => goTo("/admin/users")}>
+        <AdminItem key="users" onClick={() => goTo("/userlist")}>
           User Details & Activities
         </AdminItem>,
         <Divider key="div1" />
@@ -189,7 +189,7 @@ const CartButton = ({ itemCount = 0, cartItems = [] }) => {
 
     if (role === "SUPER_ADMIN" || role === "PRODUCT_ADMIN") {
       elements.push(
-        <AdminItem key="products" onClick={() => goTo("/admin/products")}>
+        <AdminItem key="products" onClick={() => goTo("/productslist")}>
           Product Activities
         </AdminItem>
       );
@@ -201,7 +201,7 @@ const CartButton = ({ itemCount = 0, cartItems = [] }) => {
 
     if (role === "SUPER_ADMIN" || role === "ORDER_ADMIN") {
       elements.push(
-        <AdminItem key="orders" onClick={() => goTo("/admin/orders")}>
+        <AdminItem key="orders" onClick={() => goTo("/orderslist")}>
           Order Activities
         </AdminItem>
       );

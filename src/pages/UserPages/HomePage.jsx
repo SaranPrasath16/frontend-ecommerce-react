@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import Header from "../components/Header";
-import BannerSection from "../components/BannerSection";
-import CategorySection from "../components/CategorySection";
-import FeaturedProductsSection from "../components/FeaturedProducts/FeaturedProducts";
-import Footer from "../components/Footer";
+import Header from "../../components/Header";
+import BannerSection from "../../components/BannerSection";
+import CategorySection from "../../components/CategorySection";
+import FeaturedProductsSection from "../../components/FeaturedProducts/FeaturedProducts";
+import Footer from "../../components/Footer";
 
 const HomePageContainer = styled.div`
   display: flex;
