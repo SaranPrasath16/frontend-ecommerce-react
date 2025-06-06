@@ -9,6 +9,7 @@ import CartPage from "./pages/CartPage";
 import CheckoutWaitingPage from "./pages/CheckoutWaitingPage";
 import OrderSuccessPage from "./pages/OrderSuccessPage";
 import OrderHistory from "./pages/OrderHistory";
+import CheckoutPage from "./pages/CheckoutPage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/checkout-waiting" element={<CheckoutWaitingPage />} />
         <Route path="/order-success" element={<OrderSuccessPage />} />
         <Route path="/ordershistory" element={<OrderHistory />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
       </Routes>
     </Router>
   );

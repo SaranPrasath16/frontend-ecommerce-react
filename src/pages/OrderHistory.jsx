@@ -19,7 +19,7 @@ const OrderHistoryPage = () => {
     document.title = "Order History | QuickPikk";
     const favicon = document.getElementById("favicon");
     if (favicon) {
-      favicon.href = "/assets/quickpikklogo.png";
+      favicon.href = "/assets/title_logo.png";
     }
 
     const fetchOrders = async () => {

@@ -45,7 +45,7 @@ const LoginPage = () => {
 
     const favicon = document.getElementById("favicon");
     if (favicon) {
-      favicon.href = "/assets/quickpikklogo.png";
+      favicon.href = "/assets/title_logo.png";
     }
 
     window.google?.accounts.id.initialize({

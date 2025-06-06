@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   Card,
@@ -19,6 +20,7 @@ const CartItemCard = ({ cartItem }) => {
   const [quantity, setQuantity] = useState(cartItem.quantity);
   const [selected, setSelected] = useState(cartItem.selectedForPayment);
   const [productDetails, setProductDetails] = useState(null);
+  const navigate = useNavigate();
 
   const { productId } = cartItem;
   const token = localStorage.getItem("jwt");
@@ -73,13 +75,15 @@ const CartItemCard = ({ cartItem }) => {
     await updateCartItem(newQty, selected);
   };
 
-  const handleToggleSelect = async () => {
+  const handleToggleSelect = async (e) => {
+    e.stopPropagation(); // prevent card click
     const newSelected = !selected;
     setSelected(newSelected);
     await updateCartItem(quantity, newSelected);
   };
 
-  const handleRemove = async () => {
+  const handleRemove = async (e) => {
+    e.stopPropagation(); // prevent card click
     try {
       await axios.delete("http://localhost:8080/api/user/cart", {
         params: { product_Id: productId },
@@ -90,6 +94,10 @@ const CartItemCard = ({ cartItem }) => {
     } catch (error) {
       console.error("Error removing cart item:", error);
     }
+  };
+
+  const handleCardClick = () => {
+    navigate(`/product/${productId}`);
   };
 
   if (!productDetails) {
@@ -106,7 +114,7 @@ const CartItemCard = ({ cartItem }) => {
   const productImage = imageUrls?.[0] || "/assets/default.png";
 
   return (
-    <Card>
+    <Card onClick={handleCardClick} style={{ cursor: "pointer" }}>
       <ImageWrapper>
         <Image src={productImage} alt={productName} />
       </ImageWrapper>
@@ -114,7 +122,7 @@ const CartItemCard = ({ cartItem }) => {
       <Details>
         <h4 title={productName}>{productName}</h4>
         <p>Price: ₹{productPrice.toFixed(2)}</p>
-        <div>
+        <div onClick={(e) => e.stopPropagation()}>
           Quantity:
           <QtyInput
             type="number"
@@ -125,11 +133,12 @@ const CartItemCard = ({ cartItem }) => {
         </div>
         <RemoveText onClick={handleRemove}>Remove</RemoveText>
       </Details>
+
       <SideActions>
         <TotalPrice isSelected={selected}>
           Total: ₹{(productPrice * quantity).toFixed(2)}
         </TotalPrice>
-        <ToggleWrapper>
+        <ToggleWrapper onClick={(e) => e.stopPropagation()}>
           <ToggleLabel>
             <ToggleInput
               type="checkbox"

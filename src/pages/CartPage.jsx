@@ -44,13 +44,13 @@ const CartPage = () => {
     document.title = "MyCart | QuickPikk";
     const favicon = document.getElementById("favicon");
     if (favicon) {
-      favicon.href = "/assets/quickpikklogo.png";
+      favicon.href = "/assets/title_logo.png";
     }
 
     const fetchCart = async () => {
       try {
         const token = localStorage.getItem("jwt");
-        const res = await axios.get("http://localhost:8080/api/user/cart", {
+        const res = await axios.get("api/user/cart", {
           headers: {
             Authorization: token,
           },
@@ -69,13 +69,22 @@ const CartPage = () => {
   const handleCheckout = async () => {
     setCheckingOut(true);
     try {
-      const token = localStorage.getItem("jwt");
-      await axios.post("http://localhost:8080/api/user/checkout", null, {
-        headers: {
-          Authorization: token,
+      const selectedItems = cart.cartItems.filter(
+        (item) => item.selectedForPayment === true
+      );
+
+      if (selectedItems.length === 0) {
+        alert("Please select at least one item for checkout.");
+        setCheckingOut(false);
+        return;
+      }
+
+      navigate("/checkout", {
+        state: {
+          cartItems: selectedItems,
+          totalAmount: cart.totalAmount,
         },
       });
-      navigate("/checkout-waiting");
     } catch (error) {
       alert("Failed to initiate checkout: " + error.message);
     } finally {

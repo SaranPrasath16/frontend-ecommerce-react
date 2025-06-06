@@ -10,19 +10,23 @@ export const Card = styled.div`
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   width: 100%;
-  height: 200px;
+  height: 200px; /* Fixed height */
   box-sizing: border-box;
+  overflow: hidden;
 `;
-
 
 export const ImageWrapper = styled.div`
   flex: 0 0 120px;
+  height: 100%;
   margin-right: 16px;
+  border-radius: 8px;
+  overflow: hidden; /* Crop overflow */
 `;
 
 export const Image = styled.img`
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover; /* Crop image */
   border-radius: 8px;
 `;
 
@@ -48,7 +52,6 @@ export const Details = styled.div`
   }
 `;
 
-
 export const QtyInput = styled.input`
   width: 60px;
   padding: 6px 8px;
@@ -65,7 +68,6 @@ export const QtyInput = styled.input`
   }
 `;
 
-
 export const RemoveText = styled.span`
   margin-top: 4px;
   color: #ff4d4f;
@@ -78,7 +80,6 @@ export const RemoveText = styled.span`
     opacity: 0.8;
   }
 `;
-
 
 export const SideActions = styled.div`
   flex: 0 0 160px;
@@ -155,4 +156,3 @@ export const TotalPrice = styled.p`
   margin: 0;
   color: ${(props) => (props.isSelected ? "#4caf50" : "#ff4d4f")};
 `;
-

@@ -21,7 +21,7 @@ const ProductListPage = () => {
     document.title = "ProductList | QuickPikk";
     const favicon = document.getElementById("favicon");
     if (favicon) {
-      favicon.href = "/assets/quickpikklogo.png";
+      favicon.href = "/assets/title_logo.png";
     }
     const passedProducts = location.state?.products;
 
