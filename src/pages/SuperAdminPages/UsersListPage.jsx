@@ -3,6 +3,9 @@ import styled from "styled-components";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import UserCard from "../../components/UserCard";
+import CartItemCard from "../../components/CartItemCard";
+import OrderHistoryCard from "../../components/OrderHistoryCard";
+import ReviewCard from "../../components/ReviewCard";
 import axios from "axios";
 
 const Container = styled.div`
@@ -50,6 +53,12 @@ const CloseButton = styled.button`
   background: none;
   font-size: 1.2rem;
   cursor: pointer;
+`;
+
+const ListWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;
 
 const UsersListPage = () => {
@@ -128,7 +137,7 @@ const UsersListPage = () => {
       setModalData(res.data);
     } catch (err) {
       console.error(`Failed to fetch user ${type}:`, err);
-      setModalData([{ error: `Failed to fetch ${type}` }]);
+      setModalData({ error: `Failed to fetch ${type}` });
     }
   };
 
@@ -164,15 +173,47 @@ const UsersListPage = () => {
           <ModalContent onClick={(e) => e.stopPropagation()}>
             <CloseButton onClick={closeModal}>&times;</CloseButton>
             <h3>{modalTitle}</h3>
-            <pre
-              style={{
-                whiteSpace: "pre-wrap",
-                maxHeight: "400px",
-                overflowY: "auto",
-              }}
-            >
-              {JSON.stringify(modalData, null, 2)}
-            </pre>
+
+            {modalTitle === "User Cart" ? (
+              !modalData?.cartItems || modalData.cartItems.length === 0 ? (
+                <p style={{ textAlign: "center" }}>Cart is empty.</p>
+              ) : (
+                <ListWrapper>
+                  {modalData.cartItems.map((cartItem) => (
+                    <CartItemCard
+                      key={cartItem.productId}
+                      cartItem={cartItem}
+                    />
+                  ))}
+                </ListWrapper>
+              )
+            ) : modalTitle === "User Orders" ? (
+              !modalData?.orderList || modalData.orderList.length === 0 ? (
+                <p style={{ textAlign: "center" }}>
+                  User hasn't placed any orders yet.
+                </p>
+              ) : (
+                <ListWrapper>
+                  {modalData.orderList.map((order) => (
+                    <OrderHistoryCard key={order.orderId} order={order} />
+                  ))}
+                </ListWrapper>
+              )
+            ) : modalTitle === "User Reviews" ? (
+              Array.isArray(modalData) && modalData.length > 0 ? (
+                <ListWrapper>
+                  {modalData.map((review, idx) => (
+                    <ReviewCard key={idx} review={review} />
+                  ))}
+                </ListWrapper>
+              ) : (
+                <p style={{ textAlign: "center" }}>
+                  No reviews submitted by this user.
+                </p>
+              )
+            ) : (
+              <p style={{ textAlign: "center" }}>Unknown data type</p>
+            )}
           </ModalContent>
         </ModalOverlay>
       )}

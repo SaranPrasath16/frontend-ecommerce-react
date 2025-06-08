@@ -1,6 +1,7 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
@@ -77,8 +78,35 @@ const OutOfStockList = styled.ul`
 
 const CheckoutWaitingPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { paymentLinkUrl, paymentId, message, outOfStockItems } =
     location.state || {};
+
+  useEffect(() => {
+    if (!paymentId) return;
+
+    const intervalId = setInterval(async () => {
+      try {
+        const response = await axios.get(
+          `/api/user/checkpayment?payment_Id=${paymentId}`,
+          {
+            headers: {
+              Authorization: localStorage.getItem("jwt"),
+            },
+          }
+        );
+
+        if (response.data) {
+          clearInterval(intervalId); // stop polling
+          navigate("/paymentresponse", { state: response.data }); // navigate with data
+        }
+      } catch (error) {
+        console.error("Error while checking payment:", error);
+      }
+    }, 5000); // every 5 seconds
+
+    return () => clearInterval(intervalId); // cleanup
+  }, [paymentId, navigate]);
 
   return (
     <>

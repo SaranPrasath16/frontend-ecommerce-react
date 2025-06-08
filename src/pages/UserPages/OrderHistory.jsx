@@ -25,7 +25,8 @@ const OrderHistoryPage = () => {
     const fetchOrders = async () => {
       try {
         const token = localStorage.getItem("jwt");
-        const res = await axios.get("api/user/orders", {
+        const userId = localStorage.getItem("userId");
+        const res = await axios.get(`api/user/orders?user_Id=${userId}`, {
           headers: { Authorization: token },
         });
         setOrders(res.data.orderList || []);

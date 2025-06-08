@@ -7,10 +7,11 @@ import ProductPage from "./pages/UserPages/ProductPage";
 import ProductListPage from "./pages/UserPages/ProductListPage";
 import CartPage from "./pages/UserPages/CartPage";
 import CheckoutWaitingPage from "./pages/UserPages/CheckoutWaitingPage";
-import OrderSuccessPage from "./pages/UserPages/OrderSuccessPage";
+import PaymentResponsePage from "./pages/UserPages/PaymentResponsePage";
 import OrderHistory from "./pages/UserPages/OrderHistory";
 import CheckoutPage from "./pages/UserPages/CheckoutPage";
 import UsersListPage from "./pages/SuperAdminPages/UsersListPage";
+import ProductsEntireListPage from "./pages/ProductAdminPages/ProductsEntireListPage";
 
 function App() {
   return (
@@ -23,10 +24,14 @@ function App() {
         <Route path="/productlist" element={<ProductListPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout-waiting" element={<CheckoutWaitingPage />} />
-        <Route path="/order-success" element={<OrderSuccessPage />} />
+        <Route path="/paymentresponse" element={<PaymentResponsePage />} />
         <Route path="/ordershistory" element={<OrderHistory />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/userlist" element={<UsersListPage />} />
+        <Route
+          path="/entireproductslist"
+          element={<ProductsEntireListPage />}
+        />
       </Routes>
     </Router>
   );

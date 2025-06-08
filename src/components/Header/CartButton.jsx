@@ -189,7 +189,7 @@ const CartButton = ({ itemCount = 0, cartItems = [] }) => {
 
     if (role === "SUPER_ADMIN" || role === "PRODUCT_ADMIN") {
       elements.push(
-        <AdminItem key="products" onClick={() => goTo("/productslist")}>
+        <AdminItem key="products" onClick={() => goTo("/entireproductslist")}>
           Product Activities
         </AdminItem>
       );

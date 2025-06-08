@@ -1,37 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/Header";
 import SortFilterBar from "../../components/SortFilterBar";
 import ProductCard from "../../components/ProductCard";
-import { useLocation } from "react-router-dom";
-import axios from "axios";
 import Footer from "../../components/Footer";
+import axios from "axios";
 
 const Container = styled.div`
   padding: 1rem 5rem;
   background-color: #f9f9f9;
 `;
 
-const ProductListPage = () => {
-  const location = useLocation();
+const ProductsEntireListPage = () => {
   const [products, setProducts] = useState([]);
   const [originalProducts, setOriginalProducts] = useState([]);
 
   useEffect(() => {
-    document.title = "ProductList | QuickPikk";
+    document.title = "All Products | QuickPikk";
     const favicon = document.getElementById("favicon");
     if (favicon) {
       favicon.href = "/assets/title_logo.png";
     }
-    const passedProducts = location.state?.products;
 
-    if (passedProducts && Array.isArray(passedProducts)) {
-      setProducts(passedProducts);
-      setOriginalProducts(passedProducts);
-    } else {
-      console.warn("No products passed from category");
-    }
-  }, [location.state]);
+    const fetchAllProducts = async () => {
+      try {
+        const token = localStorage.getItem("jwt");
+        const res = await axios.get(
+          "http://localhost:8080/api/admin/productadmin/product",
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        setProducts(res.data);
+        setOriginalProducts(res.data);
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      }
+    };
+
+    fetchAllProducts();
+  }, []);
 
   const handleSortChange = async (sortValue) => {
     let url = "";
@@ -66,11 +76,11 @@ const ProductListPage = () => {
             <ProductCard
               key={product.productId}
               product={product}
-              buttonType="addToCart"
+              buttonType="edit"
             />
           ))
         ) : (
-          <p>No products found.</p>
+          <p style={{ textAlign: "center" }}>No products found.</p>
         )}
       </Container>
       <Footer />
@@ -78,4 +88,4 @@ const ProductListPage = () => {
   );
 };
 
-export default ProductListPage;
+export default ProductsEntireListPage;

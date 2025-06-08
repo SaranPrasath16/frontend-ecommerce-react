@@ -32,6 +32,8 @@ const LoginPage = () => {
           localStorage.setItem("userAddress", res.headers["useraddress"]);
           localStorage.setItem("userMobile", res.headers["usermobile"]);
           localStorage.setItem("role", res.headers["role"]);
+          localStorage.setItem("userId", res.headers["userid"]);
+
           navigate("/homepage");
         } else {
           console.error("JWT missing");
@@ -49,8 +51,7 @@ const LoginPage = () => {
     }
 
     window.google?.accounts.id.initialize({
-      client_id:
-        "126856313050-j2mcgcshja084dvkg04jpdvqok9iiopr.apps.googleusercontent.com",
+      client_id: import.meta.env.GOOGLE_CLIENT_ID,
       callback: handleCredentialResponse,
     });
 
@@ -81,6 +82,7 @@ const LoginPage = () => {
           localStorage.setItem("userAddress", res.headers["useraddress"]);
           localStorage.setItem("userMobile", res.headers["usermobile"]);
           localStorage.setItem("role", res.headers["role"]);
+          localStorage.setItem("userId", res.headers["userid"]);
           navigate("/homepage");
         } else {
           console.error("JWT missing");
