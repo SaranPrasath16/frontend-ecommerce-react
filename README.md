@@ -52,9 +52,11 @@ This is the **frontend** of the e-commerce platform developed using **React**. I
 
 Follow these steps to get the frontend up and running locally:
 
-### 1. Clone the Repository
+### Clone the Repository
 
 ```bash
+### 1. Clone and change the directory
+
 git clone https://github.com/SaranPrasath16/frontend-ecommerce-react
 cd ecommerce-frontend
 
@@ -66,7 +68,6 @@ npm install
 
 Create a .env file in the root of the project and add the following environment variables:
 
-VITE_API_BASE_URL=http://localhost:8080/api
 VITE_GOOGLE_CLIENT_ID=your-google-client-id
 
 ## 4. Start the Development Server
