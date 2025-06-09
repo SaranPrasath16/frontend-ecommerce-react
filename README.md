@@ -1,21 +1,79 @@
-# 🛒 E-Commerce Frontend (React)
+# 🛍️ E-Commerce Application (Frontend)
 
-This is the frontend of an e-commerce web application built with React. It provides a clean and responsive user interface for browsing products, managing the cart, and placing orders.
+## Overview
 
-## 🚀 Features
+This is the **frontend** of the e-commerce platform developed using **React**. It provides a clean, responsive, and user-friendly interface for users and admin roles, enabling seamless interaction with the backend APIs. The application supports user shopping activities and various admin-level operations like product and order management.
 
-- Responsive homepage with product listings
-- Product detail page with image gallery and description
-- Add to cart, update quantity, and remove items
-- Checkout page with order summary
-- User authentication (login/register)
-- Admin panel for managing products, users and orders.
-- Integration-ready with backend APIs
+---
 
-## 🛠️ Tech Stack
+## ⚙️ Tech Stack
 
-- React (with Hooks and functional components)
-- React Router DOM – for client-side routing
-- Axios – for API communication
-- Styled-Components – for component-level styling
-- React Icons – for UI elements
+- **Library:** React 18+
+- **Routing:** React Router DOM
+- **State Management:** React Context / useState / useEffect
+- **Styling:** Styled-Components
+- **HTTP Client:** Axios
+- **Build Tool:** Vite
+- **Authentication:** JWT-based login via APIs
+
+---
+
+## 🎯 Key Features
+
+### 👤 User Functionality
+
+- View and search products.
+- Add items to cart.
+- Place orders.
+- View order history.
+
+### 🧑‍💼 Admin Functionality
+
+#### Super Admin
+
+- View all users.
+- View all product listings.
+- View all user carts.
+- View all orders.
+
+#### Product Admin
+
+- Add new products.
+- Edit or delete existing products.
+
+#### Order Admin
+
+- Manage orders.
+- Update order delivery status.
+
+---
+
+## 🚀 Cloning & Setup Guide
+
+Follow these steps to get the frontend up and running locally:
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/SaranPrasath16/frontend-ecommerce-react
+cd ecommerce-frontend
+
+### 2. Install Dependencies
+
+npm install
+
+##  3. Create and Configure .env File
+
+Create a .env file in the root of the project and add the following environment variables:
+
+VITE_API_BASE_URL=http://localhost:8080/api
+VITE_GOOGLE_CLIENT_ID=your-google-client-id
+
+## 4. Start the Development Server
+
+npm run dev
+
+
+The app will be available at:
+http://localhost:5173/
+```

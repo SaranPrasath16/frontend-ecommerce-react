@@ -4,11 +4,19 @@ import Header from "../../components/Header";
 import SortFilterBar from "../../components/SortFilterBar";
 import ProductCard from "../../components/ProductCard";
 import Footer from "../../components/Footer";
+import AddProductButton from "../../components/AddProductButton";
 import axios from "axios";
 
 const Container = styled.div`
   padding: 1rem 5rem;
   background-color: #f9f9f9;
+`;
+
+const TopBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 `;
 
 const ProductsEntireListPage = () => {
@@ -66,11 +74,33 @@ const ProductsEntireListPage = () => {
     }
   };
 
+  const refreshProducts = async () => {
+    try {
+      const token = localStorage.getItem("jwt");
+      const res = await axios.get(
+        "http://localhost:8080/api/admin/productadmin/product",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      setProducts(res.data);
+      setOriginalProducts(res.data);
+    } catch (error) {
+      console.error("Failed to refresh products:", error);
+    }
+  };
+
   return (
     <>
       <Header />
       <Container>
-        <SortFilterBar onSortChange={handleSortChange} />
+        <TopBar>
+          <SortFilterBar onSortChange={handleSortChange} />
+          <AddProductButton onSuccess={refreshProducts} />
+        </TopBar>
+
         {products.length > 0 ? (
           products.map((product) => (
             <ProductCard

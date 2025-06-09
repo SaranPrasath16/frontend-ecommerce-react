@@ -37,10 +37,12 @@ export const CartItemsList = styled.ul`
 
 export const CartItem = styled.li`
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding: 0.3rem 0;
   border-bottom: 1px solid #f0f0f0;
   font-size: 0.95rem;
+  gap: 0.5rem;
 `;
 
 export const ItemName = styled.span`
@@ -50,7 +52,6 @@ export const ItemName = styled.span`
   text-overflow: ellipsis;
 `;
 
-
 export const ItemQuantity = styled.span`
   flex: 1;
   text-align: center;
@@ -59,6 +60,16 @@ export const ItemQuantity = styled.span`
 export const ItemPrice = styled.span`
   flex: 1;
   text-align: right;
+`;
+
+export const ReviewButton = styled.button`
+  margin-left: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
 `;
 
 export const SummaryRow = styled.div`
@@ -76,7 +87,7 @@ export const StatusRow = styled.div`
 `;
 
 export const StatusItem = styled.span`
-  color: green;
+  color: ${(props) => (props.success ? "green" : "#c00")};
   font-weight: 600;
 `;
 
@@ -85,4 +96,63 @@ export const OrderDate = styled.div`
   font-size: 0.85rem;
   color: #666;
   text-align: right;
+`;
+
+export const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+export const ModalContent = styled.div`
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 400px;
+  position: relative;
+`;
+
+export const ModalClose = styled.span`
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+`;
+
+export const FormInput = styled.input`
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  border: 1px solid #ccc;
+`;
+
+export const FormTextarea = styled.textarea`
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  border: 1px solid #ccc;
+  resize: vertical;
+`;
+
+export const SubmitButton = styled.button`
+  padding: 0.5rem 1rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #218838;
+  }
 `;
